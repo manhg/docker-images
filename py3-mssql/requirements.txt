@@ -1,0 +1,8 @@
+flask==0.11
+flask-sqlalchemy==2.1
+flask-login==0.3.2
+pytest==2.5.2
+sqlalchemy
+Cerberus
+arrow
+raven[flask]==5.23.0
