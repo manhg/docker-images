@@ -1,0 +1,34 @@
+version: "2"
+services:
+    mysql:
+        image: mysql:5.7
+        environment:
+            - MYSQL_ALLOW_EMPTY_PASSWORD=true
+            - MYSQL_DATABASE=cakephp
+        volumes:
+            - ./sql:/docker-entrypoint-initdb.d
+    adminer:
+        image: giang/docker-adminer
+        links:
+            - mysql
+        ports:
+            - "8102:9043"
+    php:
+        build:
+            context: .
+            dockerfile: php.Dockerfile
+        volumes:
+            - ./code:/var/www
+        working_dir: /var/www
+    web:
+        build:
+            context: .
+            dockerfile: httpd.Dockerfile
+        volumes:
+            - ./code:/var/www
+            - ./httpd:/usr/local/apache2/conf.d
+        links:
+            - mysql
+            - php
+        ports:
+            - "8100:80"
