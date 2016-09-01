@@ -1,0 +1,33 @@
+version: "2"
+# to open command line to run CQL,
+#  docker exec -it db1 /usr/bin/cqlsh
+#  docker exec -it db2 /usr/bin/cqlsh
+services:
+    db1:
+        image: cassandra:3
+        container_name: db1
+        environment:
+            - CASSANDRA_DC=dc_demo
+            - CASSANDRA_CLUSTER_NAME=sanwa
+            - CASSANDRA_SEEDS=10.0.0.20
+        networks:
+            app_net:
+                ipv4_address: 10.0.0.10
+    db2:
+        extends:
+            service: db1
+        container_name: db2
+        environment:
+            - CASSANDRA_SEEDS=10.0.0.10
+        networks:
+            app_net:
+                ipv4_address: 10.0.0.20
+networks:
+    app_net:
+        ipam:
+            driver: default
+            config:
+                - subnet: 10.0.0.0/24
+                  gateway: 10.0.0.1
+                  
+                  
