@@ -1,2 +1,2 @@
 *.log
-/code/vendor
+/code/vendor/*
