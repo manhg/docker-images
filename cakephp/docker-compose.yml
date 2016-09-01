@@ -16,9 +16,10 @@ services:
     php:
         # in your host, make sure to run: `groupadd --gid=82 www-data`
         # and `usermod -a -G www-data your_name`
-        # 
+        #
         # to get into shell to run composer, use:
         # `docker exec -u www-data -i -t cakephp_php_1  /bin/sh`
+        user: www-data
         build:
             context: .
             dockerfile: php.Dockerfile

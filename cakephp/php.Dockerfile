@@ -10,6 +10,9 @@ RUN set -x \
 	&& addgroup -g 82 -S www-data \
 	&& adduser -u 82 -D -S -G www-data www-data
 ADD https://getcomposer.org/download/1.2.0/composer.phar /usr/bin/composer
-RUN chmod 755 /usr/bin/composer && composer global require "hirak/prestissimo:^0.3"
-RUN chgrp www-data /var/www/vendor && chmod g+w /var/www/vendor
-CMD umask 0002 && su -c "composer update" www-data && update && php-fpm --nodaemonize
+RUN chmod 755 /usr/bin/composer
+RUN echo '' > /var/log/php-fpm.log && chown www-data:www-data /var/log/php-fpm.log
+CMD umask 0002 \
+    && mkdir -p /var/www/vendor \
+    && composer update \
+    && php-fpm --nodaemonize
