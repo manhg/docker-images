@@ -15,9 +15,7 @@ services:
             - "8102:9043"
     php:
         # make sure: `groupadd --gid=82 www-data`
-        # use this to your name, and `usermod -a -G www-data your_name`
-        # ---
-        # user: your_name
+        # and `usermod -a -G www-data your_name`
         build:
             context: .
             dockerfile: php.Dockerfile
