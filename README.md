@@ -11,6 +11,7 @@
 * イメージは変更したいときに別 Dockerfileを書けます。
 * イメージはLayersで保存するので、ご注文ください。
 * すぐ使えるイメージ　は hub.docker.com で探せます。たとえば apache, php, mysql, python ...
+* 実行プロセスは外からポートをアクセスできます
 * https://hub.docker.com/u/sanwas で保存するイメージが出来ます、次回は早いになります。
 
 ## docker-compose.yml
@@ -28,7 +29,6 @@
 * 参照：https://docs.docker.com/engine/userguide/eng-image/dockerfile_best-practices/
 * https://blog.replicated.com/2016/02/05/refactoring-a-dockerfile-for-image-size/
 
-* ss-dockerはNginxで設定、ポートはsubdomainでアクセス出来ます。
-`http://8xxx.ss-docker.ml` will proxy to `http://localhost:8xxx`
-
+* `http://8xxx.ss-docker.ml` will proxy to `http://localhost:8xxx`
+* ss-dockerはNginxで設定、ポートはsubdomainでアクセス出来ます。このrepoを`nginx.conf`をご覧ださい。
 ユーザーは好きなポートでアプリを動く、subdomainをアクセスしてください。
