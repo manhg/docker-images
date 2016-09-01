@@ -8,4 +8,7 @@ ADD php-fpm.conf /etc/php5/
 EXPOSE 9000
 ADD https://getcomposer.org/download/1.2.0/composer.phar /usr/bin/composer
 RUN chmod 755 /usr/bin/composer
+RUN set -x \
+	&& addgroup -g 82 -S www-data \
+	&& adduser -u 82 -D -S -G www-data www-data
 CMD composer update && php-fpm --nodaemonize
