@@ -9,5 +9,7 @@ EXPOSE 9000
 RUN set -x \
 	&& addgroup -g 82 -S www-data \
 	&& adduser -u 82 -D -S -G www-data www-data
+ADD https://getcomposer.org/download/1.2.0/composer.phar /usr/bin/composer
+RUN chmod 755 /usr/bin/composer
 
-CMD php-fpm --nodaemonize
+CMD umask 0002 && php-fpm --nodaemonize
