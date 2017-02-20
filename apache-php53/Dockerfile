@@ -9,6 +9,7 @@ RUN apt-get update && \
       libapache2-mod-php5 \
       php5-gd \
       php5-mysql \
+      php5-xdebug \
       sendmail \
       vim \
     && rm -rf /var/lib/apt/lists/*
