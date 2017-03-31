@@ -1,0 +1,10 @@
+version: "2"
+services:
+    httpd:
+        build: .
+        ports:
+            - "8090:80"
+        volumes:
+            - ./html:/var/www/html/
+            - ./custom.conf:/etc/httpd/conf.d/custom.conf
+        command: apachectl -e debug -DFOREGROUND
