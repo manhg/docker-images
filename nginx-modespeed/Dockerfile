@@ -35,7 +35,10 @@ RUN cd /tmp/nginx-${NGINX_VERSION}/  \
 RUN apt-get purge -y wget build-essential  libssl-dev zlib1g-dev  libpcre3-dev unzip \
 	&& apt-get autoremove -y \
 	&& apt-get clean \
-  && rm -rf /tmp/* && mkdir -p /var/ngx_pagespeed_cache && mkdir -p /var/log/nginx/
+  && rm -rf /tmp/* && mkdir -p /var/nginx/pagespeed_cache && mkdir -p /var/log/nginx/
+
 EXPOSE 80 443
 
-CMD ["nginx", "-g", "daemon off;"]
+COPY nginx.conf /etc/nginx/nginx-pagespeed.conf
+
+CMD ["nginx", "-g", "daemon off;", "-c", "/etc/nginx/nginx-pagespeed.conf"]
