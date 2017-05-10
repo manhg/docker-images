@@ -4,6 +4,11 @@ services:
         build: .
         expose:
             - 9000
+        environment:
+            # run "/sbin/ip route|awk '/default/ { print $3 }' " to find out
+            # or set it ifconfig lo0 alias 10.254.254.254
+            # this map localhost -> docker network
+            - XDEBUG_CONFIG=remote_host=10.254.254.254
         volumes:
             - ./app:/var/www/html
             - ./www.conf:/usr/local/etc/php-fpm.d/www.conf

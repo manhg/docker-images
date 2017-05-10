@@ -1,0 +1,14 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Listen for XDebug",
+            "type": "php",
+            "request": "launch",
+            "port": 7900,
+            "localSourceRoot": "/work/docker/php7/app",
+            "serverSourceRoot": "/var/www/html",
+            "stopOnEntry": true
+        }
+    ]
+}
