@@ -32,7 +32,8 @@ RUN apk add --no-cache tzdata \
     sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /etc/php7/php.ini && \
     sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /etc/php7/php.ini && \
     sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0|i" /etc/php7/php.ini && \
-    
+    echo "zend_extension = xdebug.so" > /etc/php7/conf.d/xdebug.ini
+
     # Cleaning up
 	mkdir /www && \
 	apk del tzdata && \

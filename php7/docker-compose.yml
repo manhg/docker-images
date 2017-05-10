@@ -1,8 +1,8 @@
 version: "2"
 services:
     php:
-        build: ./debian/
-        # build: ./alpine/
+        # build: ./debian/
+        image: sanwas/php7:debian
         expose:
             - 9000
         environment:
@@ -12,10 +12,7 @@ services:
         volumes:
             - ./app:/var/www/html
             - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
-            - ./php.ini:/usr/local/etc/php/conf.d/php.ini
-            
-            # alpine
-            # - ./php.ini:/etc/php7/conf.d/xdebug.ini
+            - ./debian/php.ini:/usr/local/etc/php/conf.d/debian.ini
     nginx:
         image: nginx:1.12-alpine
         links:
