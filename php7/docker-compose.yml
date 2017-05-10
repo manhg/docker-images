@@ -1,18 +1,10 @@
 version: "2"
 services:
     php:
-        # build: ./debian/
-        image: sanwas/php7:debian
-        expose:
-            - 9000
-        environment:
-            # run "/sbin/ip route|awk '/default/ { print $3 }' " to find out
-            # this map localhost -> docker network
-            - XDEBUG_CONFIG=remote_host=10.254.254.254
+        image: sanwas/php7:alpine
         volumes:
             - ./app:/var/www/html
-            - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
-            - ./debian/php.ini:/usr/local/etc/php/conf.d/debian.ini
+            - ./alpine/php.ini:/etc/php7/conf.d/alpine.ini
     nginx:
         image: nginx:1.12-alpine
         links:

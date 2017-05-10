@@ -1,0 +1,12 @@
+version: "2"
+services:
+    php:
+        # build: ./debian/
+        image: sanwas/php7:debian
+        environment:
+            # run "/sbin/ip route|awk '/default/ { print $3 }' " to find out
+            # this map localhost -> docker network
+            - XDEBUG_CONFIG=remote_host=10.254.254.254
+        volumes:
+            - ./www.conf:/usr/local/etc/php-fpm.d/www.conf
+            - ./debian/php.ini:/usr/local/etc/php/conf.d/debian.ini
