@@ -24,5 +24,8 @@ RUN a2enmod rewrite && \
 	a2enmod deflate && \
 	a2enmod headers
 
+ADD ./custom.ini /etc/php5/conf.d/custom.ini
+
 EXPOSE 80
+EXPOSE 7900
 CMD ["/usr/local/bin/run"]
