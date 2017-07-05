@@ -100,3 +100,6 @@ SELECT * FROM pg_stat_ssl;
 
 References:
 https://wiki.postgresql.org/wiki/Streaming_Replication
+
+Fully mentioned:
+https://www.postgresql.org/docs/current/static/warm-standby.html
