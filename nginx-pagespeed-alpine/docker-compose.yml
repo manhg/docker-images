@@ -1,0 +1,9 @@
+version: "2"
+services:
+    httpd:
+        build: giang/pagespeed
+        ports:
+            - "8090:80"
+        volumes:
+            - ./www:/var/www/
+            - ./nginx:/etc/nginx/sites-enabled/
