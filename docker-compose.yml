@@ -12,9 +12,9 @@ services:
   weed:
     build: ./weedfs/0.75/
     image: giang/weedfs:1.0
-  pagespeed:
-    build: ./nginx-pagespeed/alpine
-    image: giang/pagespeed:1.0
+  # pagespeed:
+  #  build: ./nginx-pagespeed/alpine
+  #  image: giang/pagespeed:1.0
   py3-bl:
     build: ./py3-bl/
     image: giang/py3-bl:1.0
