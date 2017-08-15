@@ -1,7 +1,7 @@
 FROM frolvlad/alpine-glibc:alpine-3.5
 
 # add our user and group first to make sure their IDs get assigned consistently, regardless of whatever dependencies get added
-RUN addgroup -S weedfs && adduser -S -G weedfs weedfs
+RUN addgroup -S docker && adduser -S -G docker docker
 
 # grab su-exec for easy step-down from root
 RUN apk add --no-cache 'su-exec>=0.2'
@@ -16,7 +16,7 @@ EXPOSE 8000
 EXPOSE 8001
 EXPOSE 9333
 
-RUN mkdir /data && chown weedfs:weedfs /data
+RUN mkdir /data && chown docker:docker /data
 VOLUME /data
 WORKDIR /data
 

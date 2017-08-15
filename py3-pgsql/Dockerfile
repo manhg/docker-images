@@ -1,5 +1,7 @@
 FROM python:3.6-alpine
 ENV PYTHONUNBUFFERED 1
+RUN addgroup -S docker && adduser -S -G docker docker
+USER docker
 
 COPY requirements.txt /tmp/req.txt
 RUN apk --no-cache add \
