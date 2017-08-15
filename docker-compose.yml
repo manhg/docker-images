@@ -1,0 +1,14 @@
+version: "2"
+services: 
+  adminer:
+    build: ./adminer/
+    image: giang/adminer:1.0
+  mailcatcher:
+    build: ./mailcatcher
+    image: giang/mailcatcher:1.0
+  odoo:
+    build: ./odoo/alpine
+    image: giang/odoo:1.0
+  weed:
+    build: ./weedfs/0.75/
+    image: giang/weedfs:1.0
