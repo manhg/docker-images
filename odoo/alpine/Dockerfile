@@ -49,7 +49,8 @@ RUN apk add --no-cache \
 RUN npm install -g less
 RUN pip install --no-cache-dir passlib pydot pyparsing reportlab suds xlwt psycogreen watchdog
 RUN pip install https://github.com/Infinite-Code/PyChart/archive/master.tar.gz  
-RUN apk del build-base \
+RUN npm cache clean \
+    && apk del build-base \
         python-dev \
         libxml2-dev \
         libxslt-dev \
@@ -61,8 +62,8 @@ RUN apk del build-base \
         libffi-dev \
         nodejs-npm \
     && apk del .build-deps \
-    && npm cache clean \
     && rm -R /tmp/npm*
-ADD ./wkhtmltopdf /usr/bin/wkhtmltopdf && chmod 755 /usr/bin/wkhtmltopdf
+ADD ./wkhtmltopdf /usr/bin/wkhtmltopdf
+RUN chmod 755 /usr/bin/wkhtmltopdf
 # credit https://github.com/madnight/docker-alpine-wkhtmltopdf
 # example command: su-exec app ~/odoo/odoo-bin
