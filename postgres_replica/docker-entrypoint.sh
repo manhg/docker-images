@@ -3,7 +3,6 @@ set -e
 
 PGDATA=$(eval echo "$PGDATA")
 
-
 # usage: file_env VAR [DEFAULT]
 #    ie: file_env 'XYZ_DB_PASSWORD' 'example'
 # (will allow for "$XYZ_DB_PASSWORD_FILE" to fill in the value of
@@ -33,10 +32,7 @@ fi
 # allow the container to be started with `--user`
 if [ "$1" = 'postgres' ] && [ "$(id -u)" = '0' ]; then
 	mkdir -p "$PGDATA"
-    openssl req  -nodes -new -x509  -keyout "$PGDATA"/server.key -out "$PGDATA"/server.crt \
-        -subj "/C=JP/ST=Tokyo/L=Tokyo/O=DB/CN=www.tokyo"
-    chmod 600 "$PGDATA"/server.key "$PGDATA"/server.crt
-	chown -R postgres "$PGDATA"
+    chown -R postgres "$PGDATA"
 	chmod 700 "$PGDATA"
 
 	mkdir -p /var/run/postgresql
@@ -50,7 +46,7 @@ if [ "$1" = 'postgres' ] && [ "$(id -u)" = '0' ]; then
 		chmod 700 "$POSTGRES_INITDB_XLOGDIR"
 	fi
 
-	exec su-exec postgres "$BASH_SOURCE" "$@"
+	exec gosu postgres "$BASH_SOURCE" "$@"
 fi
 
 if [ "$1" = 'postgres' ]; then
@@ -96,6 +92,10 @@ if [ "$1" = 'postgres' ]; then
 			echo
 			echo "host all all all $authMethod"
 		} >> "$PGDATA/pg_hba.conf"
+
+        openssl req  -nodes -new -x509  -keyout "$PGDATA"/server.key -out "$PGDATA"/server.crt \
+            -subj "/C=JP/ST=Tokyo/L=Tokyo/O=DB/CN=app.local"
+        chmod 600 "$PGDATA"/server.key "$PGDATA"/server.crt
 
 		# internal start of server in order to allow set-up using psql-client
 		# does not listen on external TCP/IP and waits until start finishes
@@ -147,5 +147,7 @@ if [ "$1" = 'postgres' ]; then
 		echo
 	fi
 fi
+
+
 
 exec "$@"

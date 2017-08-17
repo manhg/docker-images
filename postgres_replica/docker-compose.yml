@@ -4,9 +4,13 @@ services:
     build: .
     links:
       - postgres-master
+    ports:
+      - 5501:5432
     environment:
       REPLICATION_ROLE: slave
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: tIXOPQbUcQP3O1He 
 
   postgres-master:
     build: .
