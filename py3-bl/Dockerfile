@@ -2,7 +2,7 @@ FROM alpine:3.6
 
 ENV PYTHONUNBUFFERED 1
 
-RUN apk add --no-cache python3 py3-psycopg2
+RUN apk add --no-cache python3 py3-psycopg2 bash
 RUN pip3 install \
     tornado==4.5 \
     cerberus==1.0.1 \

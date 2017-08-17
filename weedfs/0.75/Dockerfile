@@ -20,4 +20,4 @@ RUN mkdir /data && chown docker:docker /data
 VOLUME /data
 WORKDIR /data
 
-CMD exec su-exec weed server -dir=/data -filer -filer.port=8000 -master.port=9333 -volume.port=8001
+CMD exec su-exec docker server -dir=/data -filer -filer.port=8000 -master.port=9333 -volume.port=8001

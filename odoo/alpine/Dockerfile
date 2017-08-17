@@ -44,8 +44,9 @@ RUN apk add --no-cache --virtual .build-deps \
         nodejs-npm
 RUN npm install -g less
 RUN pip install --no-cache-dir \
-        passlib pydot pyparsing reportlab suds xlwt psycogreen watchdog
-RUN pip install https://github.com/Infinite-Code/PyChart/archive/master.tar.gz  
+        virtualenv passlib pydot pyparsing reportlab suds xlwt greenlet psycogreen watchdog \
+        raven shortuuid pdfkit
+RUN pip install https://github.com/Infinite-Code/PyChart/archive/master.tar.gz
 RUN npm cache clean \
     && apk del .build-deps \
     && rm -R /tmp/npm*
