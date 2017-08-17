@@ -1,0 +1,14 @@
+version: "2"
+services:
+  postgres-slave:
+    build: .
+    links:
+      - postgres-master
+    environment:
+      REPLICATION_ROLE: slave
+      POSTGRES_MASTER_SERVICE_HOST: postgres-master
+
+  postgres-master:
+    build: .
+    ports:
+      - 5500:5432
