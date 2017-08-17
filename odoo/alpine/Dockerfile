@@ -6,7 +6,8 @@ RUN apk add --no-cache \
         libgcc libstdc++ libx11 glib libxrender libxext libintl libcrypto1.0 libssl1.0 \
         ca-certificates ttf-freefont \
         curl tar bash postgresql-client su-exec nodejs
-
+ADD ./wkhtmltopdf /usr/bin/wkhtmltopdf
+RUN chmod 755 /usr/bin/wkhtmltopdf
 RUN apk add --no-cache \
         py2-gevent \
         py2-pip \
@@ -44,16 +45,13 @@ RUN apk add --no-cache --virtual .build-deps \
         nodejs-npm
 RUN npm install -g less
 RUN pip install --no-cache-dir \
-        virtualenv passlib pydot pyparsing reportlab suds xlwt greenlet psycogreen watchdog \
-        raven shortuuid pdfkit
+        virtualenv passlib pydot pypdf pyparsing reportlab suds xlwt greenlet psycogreen watchdog \
+        raven shortuuid pdfkit bcrypt
 RUN pip install https://github.com/Infinite-Code/PyChart/archive/master.tar.gz
 RUN npm cache clean \
     && apk del .build-deps \
     && rm -R /tmp/npm*
-ADD ./wkhtmltopdf /usr/bin/wkhtmltopdf
-RUN chmod 755 /usr/bin/wkhtmltopdf
 
 RUN addgroup -S docker && adduser -S -g docker docker
-USER docker
 # credit https://github.com/madnight/docker-alpine-wkhtmltopdf
 # example command: su-exec app ~/odoo/odoo-bin
