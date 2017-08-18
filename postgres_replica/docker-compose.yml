@@ -1,4 +1,4 @@
-version: "2"
+version: "2.2"
 services:
   postgres-master:
     # get into: psql -h 127.0.0.1 -p 5500 -U app
@@ -10,14 +10,21 @@ services:
       POSTGRES_USER: app
       # use docker-compose.override.yml to store your password
       POSTGRES_PASSWORD: TODOyourPassWord
+    volumes:
+      - ./data:/var/lib/postgresql/data
     ports:
       - 5500:5432
+    restart: on-failure
+    mem_limit: 512m
   postgres-slave:
     build: .
     links:
       - postgres-master
     ports:
       - 5501:5432
+    restart: on-failure
+    memswap_limit: 0
+    mem_limit: 512m
     environment:
       REPLICATION_ROLE: slave
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
