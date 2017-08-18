@@ -1,5 +1,17 @@
 version: "2"
 services:
+  postgres-master:
+    # get into: psql -h 127.0.0.1 -p 5500 -U app
+    # note: some Postgres client might not support SSL connection,
+    # which require to connect to this server
+    build: .
+    environment:
+      REPLICATION_ROLE: master
+      POSTGRES_USER: app
+      # use docker-compose.override.yml to store your password
+      POSTGRES_PASSWORD: TODOyourPassWord
+    ports:
+      - 5500:5432
   postgres-slave:
     build: .
     links:
@@ -9,11 +21,3 @@ services:
     environment:
       REPLICATION_ROLE: slave
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
-
-
-  postgres-master:
-    build: .
-    environment:
-      REPLICATION_ROLE: master
-    ports:
-      - 5500:5432
