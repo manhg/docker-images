@@ -9,10 +9,11 @@ services:
     environment:
       REPLICATION_ROLE: slave
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
-      POSTGRES_USER: app
-      POSTGRES_PASSWORD: tIXOPQbUcQP3O1He 
+
 
   postgres-master:
     build: .
+    environment:
+      REPLICATION_ROLE: master
     ports:
       - 5500:5432
