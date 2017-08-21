@@ -17,7 +17,8 @@ EXPOSE 9333
 ARG USER_ID=1000
 ARG GROUP_ID=500
 RUN addgroup -g $GROUP_ID docker && \
-    adduser -D -u $USER_ID -G docker docker
+    adduser -D -u $USER_ID -G docker docker && \
+    umask 0027
 RUN mkdir /data && chown docker:docker /data
 VOLUME /data
 WORKDIR /data

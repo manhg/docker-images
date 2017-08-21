@@ -18,8 +18,10 @@ RUN mkdir /etc/nginx/ssl/ \
 EXPOSE 4443
 WORKDIR /etc/nginx/
 RUN rm /etc/localtime \
-    && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+    && cp /usr/share/zoneinfo/Asia/Tokyo /etc/localtime \
+    && umask 0027
 VOLUME ["/www"]
 VOLUME ["/var/log/nginx"]
+VOLUME ["/var/lib/nginx"]
 ENTRYPOINT ["/bin/docker-entrypoint.sh"]
 CMD ["nginx", "-c", "/etc/nginx/nginx.conf", "-g", "daemon off;"]

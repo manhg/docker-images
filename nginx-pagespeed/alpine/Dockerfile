@@ -127,13 +127,14 @@ RUN set -x && \
     ln -sf /dev/stderr /var/log/nginx/error.log && \
     # Make PageSpeed cache writable.
     mkdir -p /var/cache/ngx_pagespeed && \
-    chmod -R o+wr /var/cache/ngx_pagespeed
+    chmod -R o+wr /var/cache/ngx_pagespeed && \
+    umask 0027 
 
 # Make our nginx.conf available on the container.
 ADD etc/nginx/nginx.conf /etc/nginx/nginx.conf
 
-# Separate the logs into their own volume to keep them out of the container.
 VOLUME ["/var/log/nginx"]
+VOLUME ["/var/lib/nginx"]
 
 # Expose the HTTP and HTTPS ports.
 EXPOSE 80 443

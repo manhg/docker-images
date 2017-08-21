@@ -12,5 +12,9 @@ RUN pip3 install \
 
 CMD python3
 
-RUN addgroup -S docker && adduser -S -G docker docker
-USER docker
+ARG USER_ID=1000
+ARG GROUP_ID=500
+RUN addgroup -g $GROUP_ID docker && \
+    adduser -D -u $USER_ID -G docker docker && \
+    umask 0027
+USER $USER_ID
