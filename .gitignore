@@ -2,4 +2,5 @@ cakephp/code/composer.lock
 postgres_replica/.env
 postgres_replica/.dockerignore
 postgres_replica/data
+postgres_replica/backup
 weedfs/data

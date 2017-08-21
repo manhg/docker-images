@@ -1,6 +1,15 @@
 Postgres Streaming Replication
 ==============================
 
+Get started
+-----------
+* Start master first and wait intiialization finish:
+`docker-compose up -d postgres-master`
+
+* Start slave:
+`docker-compose up -d postgres-slave`
+
+
 [![Build Status](https://travis-ci.org/nebirhos/docker-postgres-replication.svg?branch=master)](https://travis-ci.org/nebirhos/docker-postgres-replication)
 [![](https://imagelayers.io/badge/nebirhos/postgres-replication:latest.svg)](https://imagelayers.io/?images=nebirhos/postgres-replication:latest 'Get your own badge on imagelayers.io')
 
