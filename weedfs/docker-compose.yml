@@ -1,0 +1,7 @@
+version: "2"
+services:
+    master:
+        build: ./0.76
+        image: giang/weedfs:0.76
+        volumes:
+            - ./data:/data
