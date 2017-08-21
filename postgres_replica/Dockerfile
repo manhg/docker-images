@@ -29,3 +29,8 @@ COPY 10-config.sh /docker-entrypoint-initdb.d/
 COPY 20-replication.sh /docker-entrypoint-initdb.d/
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN sed -i 's/set -e/set -e -x\nPGDATA=$(eval echo "$PGDATA")/' /docker-entrypoint.sh
+
+ADD https://raw.githubusercontent.com/manhg/pg_back/master/pg_back /usr/bin/pg_back
+RUN chmod 750 /usr/bin/pg_back \
+    && mkdir -p /var/backups/postgresql \
+    && chmod 770 /var/backups/postgresql
