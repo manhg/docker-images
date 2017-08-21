@@ -3,12 +3,12 @@ FROM alpine:3.6
 ENV PYTHONUNBUFFERED 1
 
 RUN apk add --no-cache python3 py3-psycopg2 bash
-RUN pip3 install \
-    tornado==4.5 \
-    cerberus==1.0.1 \
-    Momoko==2.2.4 \
-    stripe \
-    raven
+
+RUN apk add --no-cache --virtual .deps \
+    python3-dev
+ADD ./requirements.txt /tmp/requirements.txt
+RUN pip3 install -r /tmp/requirements.txt
+RUN apk del .deps
 
 CMD python3
 
