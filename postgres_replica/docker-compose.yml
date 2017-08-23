@@ -33,5 +33,9 @@ services:
     environment:
       REPLICATION_ROLE: slave
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
+  postgres-pool:
+    build: ./pool
+    ports:
+      - 5432
   # to backup, run following
   # docker-compose exec postgres-slave pg_back -U app
