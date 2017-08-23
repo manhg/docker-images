@@ -12,12 +12,13 @@ services:
       POSTGRES_PASSWORD: TODOyourPassWord
     volumes:
       - ./data:/var/lib/postgresql/data
+      - ./conf.d:/var/lib/postgresql/postgresql.conf.d:ro
       # enable initial dumps here
       # - ./dump:/docker-entrypoint-initdb.d/
     ports:
       - 5500:5432
     restart: on-failure
-    mem_limit: 512m
+    mem_limit: 280m
     memswap_limit: 0
   postgres-slave:
     build: .
@@ -27,15 +28,22 @@ services:
       - 5501:5432
     restart: on-failure
     memswap_limit: 0
-    mem_limit: 512m
+    mem_limit: 280m
     volumes:
       - ./backup:/var/backups/postgresql
+      - ./conf.d:/var/lib/postgresql/postgresql.conf.d:ro
     environment:
       REPLICATION_ROLE: slave
       POSTGRES_MASTER_SERVICE_HOST: postgres-master
   postgres-pool:
     build: ./pool
+    volumes:
+      - ./pool/pgpool.conf:/etc/pgpool2/pgpool.conf
+      - ./pool/pool_hba.conf:/etc/pgpool2/pgpool.conf
     ports:
-      - 5432
+      - 9999:9999
+    links:
+      - postgres-master
+      - postgres-slave
   # to backup, run following
   # docker-compose exec postgres-slave pg_back -U app
