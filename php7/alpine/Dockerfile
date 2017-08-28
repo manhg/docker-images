@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 
 ENV TIMEZONE            Asia/Tokyo
 ENV PHP_MEMORY_LIMIT    64M
@@ -7,6 +7,11 @@ ENV PHP_MAX_FILE_UPLOAD 200
 ENV PHP_MAX_POST        20M
 
 RUN apk add --no-cache tzdata \
+		php7 \
+		php7-common \
+		php7-sockets \
+		php7-session \
+		php7-mcrypt \
 		php7-mcrypt \
 		php7-openssl \
 		php7-pdo \
@@ -18,7 +23,6 @@ RUN apk add --no-cache tzdata \
 		php7-curl \
         php7-xdebug \
 		php7-fpm && \
-    
     cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 	echo "${TIMEZONE}" > /etc/timezone && \
     
@@ -32,8 +36,6 @@ RUN apk add --no-cache tzdata \
     sed -i "s|;*max_file_uploads =.*|max_file_uploads = ${PHP_MAX_FILE_UPLOAD}|i" /etc/php7/php.ini && \
     sed -i "s|;*post_max_size =.*|post_max_size = ${PHP_MAX_POST}|i" /etc/php7/php.ini && \
     sed -i "s|;*cgi.fix_pathinfo=.*|cgi.fix_pathinfo= 0|i" /etc/php7/php.ini && \
-    echo "zend_extension = xdebug.so" > /etc/php7/conf.d/xdebug.ini
-
     # Cleaning up
 	mkdir /www && \
 	apk del tzdata && \
@@ -48,5 +50,4 @@ VOLUME ["/var/www/html"]
 # Expose ports
 EXPOSE 9000
 
-# Entry point
-ENTRYPOINT ["/usr/sbin/php-fpm7"]
+CMD ["/usr/sbin/php-fpm7"]
