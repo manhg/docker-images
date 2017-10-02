@@ -5,12 +5,13 @@ VOLUME ["/var/www"]
 RUN apt-get update && \
     apt-get install -y \
       apache2 \
-      php5-cli \
       libapache2-mod-php5 \
+      php5-cli \
       php5-gd \
       php5-curl \
       php5-mysql \
-      php5-xdebug \
+      php5-memcache \
+      php5-apc \
       sendmail \
       vim \
     && rm -rf /var/lib/apt/lists/*
@@ -29,3 +30,4 @@ ADD ./custom.ini /etc/php5/conf.d/custom.ini
 EXPOSE 80
 EXPOSE 7900
 CMD ["/usr/local/bin/run"]
+

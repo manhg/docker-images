@@ -52,5 +52,10 @@ RUN set -x; \
 ENV LANG en_US.utf8
 RUN pip install --upgrade --no-cache-dir pip setuptools wheel virtualenv
 
+RUN apt-get update \
+        && apt-get install -y --no-install-recommends \
+            python-all-dbg \
+            libc6-dbg
+
 ADD ./requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt

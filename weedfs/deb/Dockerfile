@@ -2,7 +2,8 @@ FROM debian:stretch-slim
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
-    wget
+    wget \
+    && apt-get clean
 ENV DEBIAN_FRONTEND noninteractive
 RUN wget --no-verbose -P /tmp https://github.com/chrislusf/seaweedfs/releases/download/0.76/linux_amd64.tar.gz && \
     tar -C /usr/bin/ -xzvf /tmp/linux_amd64.tar.gz
@@ -20,4 +21,4 @@ RUN mkdir /data && chown docker:docker /data
 VOLUME /data
 WORKDIR /data
 USER $USER_ID
-CMD $USER_ID /usr/bin/weed server -dir=/data -filer -filer.port=8000 -master.port=9333 -volume.port=8001
+CMD /usr/bin/weed server -dir=/data -filer -filer.port=8000 -master.port=9333 -volume.port=8001
