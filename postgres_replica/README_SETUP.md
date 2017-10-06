@@ -1,7 +1,7 @@
 Replication major steps
 
 * This is set for
-    - Async xlog-based
+    - Async wal-based
     - Over SSL between master-standby Postgres nodes
     - No automatic failover
 
@@ -31,7 +31,7 @@ max_wal_senders = 5
 
 # To prevent the primary server from removing the WAL segments required for
 # the standby server before shipping them, set the minimum number of segments
-# retained in the pg_xlog directory. At least wal_keep_segments should be
+# retained in the pg_wal directory. At least wal_keep_segments should be
 # larger than the number of segments generated between the beginning of
 # online-backup and the startup of streaming replication. If you enable WAL
 # archiving to an archive directory accessible from the standby, this may
@@ -62,7 +62,7 @@ SELECT pg_reload_conf()
 * Setup slave (standby) config
 
 ```sh
-pg_basebackup -h master_ip -D /path/to/pg_data -R -P -U replica --xlog-method=stream
+pg_basebackup -h master_ip -D /path/to/pg_data -R -P -U replica --wal-method=stream
 ```
 
 Edit `recovery.conf` (must be in pgdata path), pg_basebackup might already create it for you
