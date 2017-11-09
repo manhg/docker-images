@@ -10,15 +10,12 @@ RUN apt-get update && \
       php5-gd \
       php5-curl \
       php5-mysql \
-      php5-memcache \
-      php5-apc \
       sendmail \
+      cron \
       vim \
     && rm -rf /var/lib/apt/lists/*
 
 COPY apache_default /etc/apache2/sites-available/default
-COPY run /usr/local/bin/run
-RUN chmod +x /usr/local/bin/run
 RUN a2enmod rewrite && \
 	a2enmod proxy && \
 	a2enmod proxy_http && \
@@ -29,5 +26,13 @@ ADD ./custom.ini /etc/php5/conf.d/custom.ini
 
 EXPOSE 80
 EXPOSE 7900
-CMD ["/usr/local/bin/run"]
 
+
+ENV APACHE_RUN_USER=www-data
+ENV APACHE_RUN_GROUP=www-data
+ENV APACHE_PID_FILE=/var/run/apache2.pid
+ENV APACHE_RUN_DIR=/var/run/apache2
+ENV APACHE_LOCK_DIR=/var/lock/apache2
+ENV APACHE_LOG_DIR=/var/log/apache2
+ENV LANG=C
+CMD /usr/sbin/apache2 -DFOREGROUND
